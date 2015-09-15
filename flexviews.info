@@ -1,0 +1,8 @@
+name = Flexviews
+description = Provides a Views plugin helper for displaying content in a CSS3 flexbox style
+backdrop = 1.x
+version = 1.x-1.1
+type = module
+package = Layout
+configure = admin/config/user-interface/flexviews
+dependencies[] = views

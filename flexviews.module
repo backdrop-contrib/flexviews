@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * Flexviews plugin for views.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function flexviews_permission() {
+  return array(
+    'manage Flexviews settings' => array(
+      'title' => t('Manage Flexviews settings'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function flexviews_menu() {
+  $items = array();
+
+  $items['admin/config/user-interface/flexviews'] = array(
+    'title' => 'Flexviews Settings',
+    'description' => 'Configure Flexviews',
+    'page callback' => 'backdrop_get_form',
+    'page arguments' => array('flexviews_settings_form'),
+    'access arguments' => array('manage Flexviews settings'),
+    'file' => 'flexviews.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_autoload_info.
+ */
+function flexviews_autoload_info() {
+  return array(
+    'views_plugin_style_flexviews' => 'views_plugin_style_flexviews.inc',
+  );
+}
+
+/**
+ * Implements hook_views_api()
+ */
+function flexviews_views_api() {
+  return array(
+    'api' => '3.0',
+    'path' => backdrop_get_path('module', 'flexviews'),
+    'template_path' => backdrop_get_path('module', 'flexviews'),
+  );
+}
+
+/**
+ * Preprocess function for views_view_salvattore.tpl.php.
+ */
+function template_preprocess_views_view_flexviews(&$vars) {
+  // Run preprocess function for unformatted style
+  template_preprocess_views_view_unformatted($vars);
+  // Get view options
+  $view = $vars['view'];
+  $options = $vars['options'];
+}
